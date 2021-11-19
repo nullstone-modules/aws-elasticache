@@ -1,13 +1,6 @@
 resource "aws_elasticache_cluster" "this" {
-  cluster_id         = local.resource_name
-  engine             = "redis"
-  engine_version     = var.redis_version
-  node_type          = var.node_type
-  // since this is creating a redis instance, this is always 1
-  // if we are using the "memcached" engine, the num_cache_nodes can be larger
-  num_cache_nodes    = 1
-  apply_immediately  = true
-  security_group_ids = [aws_security_group.this.id]
+  cluster_id           = local.resource_name
+  replication_group_id = aws_elasticache_replication_group.this.id
 }
 
 locals {
@@ -39,6 +32,7 @@ resource "aws_elasticache_replication_group" "this" {
   multi_az_enabled              = length(local.private_subnet_ids) > 1 && local.is_multi_node
   automatic_failover_enabled    = local.is_multi_node
   number_cache_clusters         = var.node_count
+  apply_immediately             = true
 
   dynamic "cluster_mode" {
     for_each = local.cluster_mode
