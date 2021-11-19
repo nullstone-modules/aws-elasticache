@@ -3,6 +3,9 @@ resource "aws_elasticache_cluster" "this" {
   engine             = "redis"
   engine_version     = var.redis_version
   node_type          = var.node_type
+  // since this is creating a redis instance, this is always 1
+  // if we are using the "memcached" engine, the num_cache_nodes can be larger
+  num_cache_nodes    = 1
   apply_immediately  = true
   security_group_ids = [aws_security_group.this.id]
 }
