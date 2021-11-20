@@ -9,7 +9,7 @@ output "db_protocol" {
 }
 
 locals {
-  single_endpoint  = try(aws_elasticache_replication_group.this.primary_endpoint_address, "")
+  single_endpoint  = format("%s:%s", try(aws_elasticache_replication_group.this.primary_endpoint_address, ""), local.port)
   cluster_endpoint = try(aws_elasticache_replication_group.this.configuration_endpoint_address, "")
 }
 
