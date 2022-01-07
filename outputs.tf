@@ -23,3 +23,8 @@ output "db_security_group_id" {
   value       = aws_security_group.this.id
   description = "string ||| The ID of the security group attached to Redis."
 }
+
+output "is_tls_enabled" {
+  value       = aws_elasticache_replication_group.this.transit_encryption_enabled
+  description = "bool ||| Describes whether transit encryption is enabled for Redis."
+}
