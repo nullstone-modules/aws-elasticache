@@ -1,0 +1,10 @@
+org_name: nullstone
+name: aws-redis
+friendly_name: ElasticCache Redis Database
+description: Creates a standard Redis instance using AWS Elasticache
+category: datastore
+type: redis/aws
+layer: database
+is_public: true
+provider_types:
+    - aws
