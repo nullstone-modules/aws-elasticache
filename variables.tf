@@ -13,5 +13,5 @@ variable "node_type" {
 variable "enforce_ssl" {
   type        = bool
   default     = true
-  description = "By default, traffic to this instance will be send using ssl via the rediss protocol. Toggle this option to false in order to use an unencrypted transport."
+  description = "By default, traffic to this instance will be sent using ssl via the rediss protocol. Toggle this option off in order to use an unencrypted transport."
 }
