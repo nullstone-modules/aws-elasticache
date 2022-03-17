@@ -9,3 +9,9 @@ variable "node_type" {
   default     = "cache.t3.small"
   description = "The node size for each redis node. See https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html."
 }
+
+variable "enforce_ssl" {
+  type        = bool
+  default     = true
+  description = "By default, traffic to this instance will be sent using ssl via the rediss protocol. Toggle this option off in order to use an unencrypted transport."
+}

@@ -20,8 +20,8 @@ resource "aws_elasticache_replication_group" "this" {
   tags                       = local.tags
   auto_minor_version_upgrade = true
   at_rest_encryption_enabled = true
-  transit_encryption_enabled = true
-  auth_token                 = random_password.auth_token.result
+  transit_encryption_enabled = var.enforce_ssl
+  auth_token                 = local.auth_token
   engine                     = "redis"
   engine_version             = var.redis_version
   node_type                  = var.node_type
@@ -32,4 +32,10 @@ resource "aws_elasticache_replication_group" "this" {
   automatic_failover_enabled = false
   num_cache_clusters         = 2
   apply_immediately          = true
+}
+
+locals {
+  // when transit_encrypt_enabled is false, we can't provide an auth_token
+  // see the usage of this local above for context
+  auth_token = var.enforce_ssl ? random_password.auth_token.result : null
 }
