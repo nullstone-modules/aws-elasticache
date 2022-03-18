@@ -16,5 +16,5 @@ resource "aws_secretsmanager_secret" "auth_token" {
 
 resource "aws_secretsmanager_secret_version" "auth_token" {
   secret_id     = aws_secretsmanager_secret.auth_token.id
-  secret_string = random_password.auth_token.result
+  secret_string = local.auth_token
 }
