@@ -11,10 +11,14 @@ resource "random_password" "auth_token" {
 
 resource "aws_secretsmanager_secret" "auth_token" {
   name = "${local.resource_name}/auth_token"
-  tags = data.ns_workspace.this.tags
+  tags = local.tags
+
+  count = local.auth_token == null ? 0 : 1
 }
 
 resource "aws_secretsmanager_secret_version" "auth_token" {
-  secret_id     = aws_secretsmanager_secret.auth_token.id
+  secret_id     = aws_secretsmanager_secret.auth_token[count.index].id
   secret_string = local.auth_token
+
+  count = local.auth_token == null ? 0 : 1
 }

@@ -1,5 +1,5 @@
 output "db_admin_secret_id" {
-  value       = aws_secretsmanager_secret.auth_token.id
+  value       = try(aws_secretsmanager_secret.auth_token[0].id, "")
   description = "string ||| The ID of the secret in AWS Secrets Manager containing the auth token"
 }
 
