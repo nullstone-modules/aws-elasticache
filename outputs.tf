@@ -5,7 +5,7 @@ output "db_admin_secret_id" {
 
 output "db_protocol" {
   value       = aws_elasticache_replication_group.this.transit_encryption_enabled ? "rediss" : "redis"
-  description = "string ||| This emits `redis` and is used for generalized data store contracts."
+  description = "string ||| This emits `rediss` (secure) or `redis` and is used for generalized data store contracts."
 }
 
 locals {
