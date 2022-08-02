@@ -37,5 +37,6 @@ resource "aws_elasticache_replication_group" "this" {
 locals {
   // when transit_encrypt_enabled is false, we can't provide an auth_token
   // see the usage of this local above for context
-  auth_token = var.enforce_ssl ? random_password.auth_token.result : null
+  has_auth_token = var.enforce_ssl ? true : false
+  auth_token     = local.has_auth_token ? random_password.auth_token.result : null
 }
