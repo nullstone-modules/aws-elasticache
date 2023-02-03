@@ -10,7 +10,7 @@ locals {
 
 resource "aws_elasticache_subnet_group" "this" {
   name       = local.resource_name
-  subnet_ids = local.private_subnet_ids
+  subnet_ids = coalescelist(local.private_subnet_ids, local.public_subnet_ids)
   tags       = local.tags
 }
 
