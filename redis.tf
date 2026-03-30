@@ -5,7 +5,8 @@ resource "aws_elasticache_cluster" "this" {
 }
 
 locals {
-  port = 6379
+  port   = 6379
+  engine = startswith(var.redis_version, "5.") || startswith(var.redis_version, "6.") || startswith(var.redis_version, "7.") ? "redis" : "valkey"
 }
 
 resource "aws_elasticache_subnet_group" "this" {
@@ -22,7 +23,7 @@ resource "aws_elasticache_replication_group" "this" {
   at_rest_encryption_enabled = true
   transit_encryption_enabled = var.enforce_ssl
   auth_token                 = local.auth_token
-  engine                     = "redis"
+  engine                     = local.engine
   engine_version             = var.redis_version
   node_type                  = var.node_type
   port                       = local.port
