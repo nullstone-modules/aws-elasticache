@@ -1,7 +1,11 @@
 variable "redis_version" {
   type        = string
-  default     = "6.x"
-  description = "Redis engine version"
+  default     = "8.0"
+  description = <<-EOF
+    The engine version for the ElastiCache replication group.
+    Versions 7.x and below use the Redis engine.
+    Versions 8.0 and above use the Valkey engine.
+  EOF
 }
 
 variable "node_type" {
