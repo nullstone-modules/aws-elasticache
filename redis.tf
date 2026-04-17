@@ -1,4 +1,6 @@
 resource "aws_elasticache_cluster" "this" {
+  count = local.engine == "redis" ? 1 : 0
+
   cluster_id           = local.resource_name
   replication_group_id = aws_elasticache_replication_group.this.id
   tags                 = local.tags
