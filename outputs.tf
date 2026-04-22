@@ -14,11 +14,21 @@ locals {
 }
 
 output "db_endpoint" {
-  value       = local.single_endpoint
+  value       = coalesce(local.single_endpoint, local.cluster_endpoint)
   description = "string ||| The endpoint URL to access Redis."
 }
 
 output "db_security_group_id" {
   value       = aws_security_group.this.id
   description = "string ||| The ID of the security group attached to Redis."
+}
+
+output "primary_host" {
+  value       = aws_elasticache_replication_group.this.primary_endpoint_address
+  description = "string ||| The primary redis host for writes and reads"
+}
+
+output "reader_host" {
+  value       = aws_elasticache_replication_group.this.reader_endpoint_address
+  description = "string ||| The primary redis host for reads"
 }
