@@ -31,9 +31,9 @@ resource "aws_elasticache_replication_group" "this" {
   port                       = local.port
   security_group_ids         = [aws_security_group.this.id]
   subnet_group_name          = aws_elasticache_subnet_group.this.name
-  multi_az_enabled           = false
-  automatic_failover_enabled = false
-  num_cache_clusters         = 2
+  multi_az_enabled           = var.multi_az
+  automatic_failover_enabled = var.multi_az
+  num_cache_clusters         = 1 + var.num_replicas
   apply_immediately          = true
 }
 

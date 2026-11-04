@@ -19,3 +19,20 @@ variable "enforce_ssl" {
   default     = true
   description = "By default, traffic to this instance will be sent using ssl via the rediss protocol. Toggle this option off in order to use an unencrypted transport."
 }
+
+variable "multi_az" {
+  type        = bool
+  default     = false
+  description = "Enable Multi-AZ with automatic failover. When the primary fails, AWS promotes a replica and moves the primary endpoint within about a minute. Requires at least one replica. Not supported on cache.t2 node types."
+
+  validation {
+    condition     = !var.multi_az || var.num_replicas >= 1
+    error_message = "multi_az requires num_replicas >= 1."
+  }
+}
+
+variable "num_replicas" {
+  type        = number
+  default     = 1
+  description = "Number of read replicas. The reader endpoint round-robins across them. Set to 0 for a single-node cluster (no reader endpoint, no failover)."
+}
