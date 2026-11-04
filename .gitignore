@@ -11,4 +11,3 @@
 envs/
 __backend__.tf
 .nullstone/active-workspace.yml
-.terraform.lock.hcl

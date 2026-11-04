@@ -1,6 +1,9 @@
 # 0.4.0 (Nov 4, 2026)
 * Added `multi_az` (default `false`) to enable Multi-AZ with automatic failover.
 * Added `num_replicas` (default `1`) to configure the number of read replicas. `reader_host` is empty when set to `0`.
+* Upgraded `ns` provider to `0.13.0`.
+* Added terraform lock file.
+* Switched to `aws_tags` for proper resource attribution.
 
 # 0.3.1 (Apr 21, 2026)
 * Added `primary_host` and `reader_host` outputs.
