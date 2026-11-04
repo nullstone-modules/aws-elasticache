@@ -29,6 +29,6 @@ output "primary_host" {
 }
 
 output "reader_host" {
-  value       = aws_elasticache_replication_group.this.reader_endpoint_address
-  description = "string ||| The primary redis host for reads"
+  value       = var.num_replicas > 0 ? aws_elasticache_replication_group.this.reader_endpoint_address : ""
+  description = "string ||| The reader redis host (round-robins across replicas). Empty when num_replicas is 0."
 }
